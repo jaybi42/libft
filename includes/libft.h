@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/13 14:10:31 by jguthert          #+#    #+#             */
-/*   Updated: 2016/02/17 12:19:54 by jguthert         ###   ########.fr       */
+/*   Updated: 2016/02/18 17:33:21 by jguthert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,13 @@ int					ftv_reserve(t_ftv *ftv, size_t new_cap);
 void				ftv_del(t_ftv *ftv, void (*del)());
 void				ftv_popback(t_ftv *ftv, void (*del)());
 void				ftv_del_len(t_ftv *v, size_t s, size_t e, void (*del)());
+
+/*
+**	##=-  Error  -=##
+*/
+
+int					ft_error(char const *file, char const *function, int line);
+int					ft_errorno(char const *file,
+								char const *function, int line);
 
 #endif
