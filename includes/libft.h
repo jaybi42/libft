@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/13 14:10:31 by jguthert          #+#    #+#             */
-/*   Updated: 2016/02/18 17:33:21 by jguthert         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:47:51 by jguthert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char				*ft_itoa(int n);
 char				*ft_itoa_base(int nbr, int base);
 char				*ft_ulltoa_base(uint64_t nbr, int base, char *str);
 int					ft_getnbr(char *str);
+int					ft_nbrlen(uint64_t nbr);
 
 /*
 **	##=-  Casse  -=##
