@@ -6,6 +6,7 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_isalnum.o\
 	obj/src/ft_isalpha.o\
 	obj/src/ft_isascii.o\
+	obj/src/ft_isblank.o\
 	obj/src/ft_isdigit.o\
 	obj/src/ft_isprint.o\
 	obj/src/ft_itoa.o\
@@ -78,6 +79,7 @@ obj/src/ft_getnbr.o: src/ft_getnbr.c | obj/src/
 obj/src/ft_isalnum.o: src/ft_isalnum.c | obj/src/
 obj/src/ft_isalpha.o: src/ft_isalpha.c | obj/src/
 obj/src/ft_isascii.o: src/ft_isascii.c | obj/src/
+obj/src/ft_isblank.o: include/libft.h src/ft_isblank.c | obj/src/
 obj/src/ft_isdigit.o: src/ft_isdigit.c | obj/src/
 obj/src/ft_isprint.o: src/ft_isprint.c | obj/src/
 obj/src/ft_itoa.o: src/ft_itoa.c | obj/src/
