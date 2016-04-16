@@ -1,91 +1,105 @@
-#******************************************************************************#
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jguthert <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/12/12 14:57:16 by jguthert          #+#    #+#              #
-#    Updated: 2016/03/16 15:54:17 by jguthert         ###   ########.fr        #
-#                                                                              #
-#******************************************************************************#
 
-##=- Compilatator -=##
+UNAME			:= $(shell uname | cut -c1-6)
 
-CC = gcc
-NAME = libft.a
+# ============================================================================ #
+# Sources Directories
+
+# include search path for .o dependencies
+MKGEN_INCLUDESDIRS		:= include
+# Obj files directory
+MKGEN_OBJDIR			:= obj
+# Source files directories
+MKGEN_SRCSDIRS_BLABLA	:= src
 
 
-##=- FLAGS -=##
+# ============================================================================ #
+# Default  flags
+BASE_FLAGS		= -Wall -Wextra -g3
+HEAD_FLAGS		= $(addprefix -I,$(INCLUDEDIRS))
+LD_FLAGS		=
 
-CFLAGS = -Wall -Wextra -Werror
-
-
-##=- PATH -=##
-
-OBJPATH = obj
-SRCPATH = srcs
-INCLUDE_PATH = includes/
+MAKEFLAGS		+= -j
 
 
-##=- Rules -=##
+# ============================================================================ #
+#	NAME		link; target
+#	CC_LD		link; ld
+#	SRCSBIN		separate compilation; targets
+#	INCLUDEDIRS	separate compilation; sources includes path
 
-INCLUDES = -I $(INCLUDE_PATH)
-AR = ar rc $(NAME)
-RAN = ranlib $(NAME)
+NAME			:= libft.a
+CC_LD			= $(CC_AR)
+LD_FLAGS		+=
 
-##=- Files -=##
+SRCSBIN			= $(MKGEN_SRCSBIN_BLABLA) #gen by mkgen
+INCLUDEDIRS		= $(MKGEN_INCLUDESDIRS)
 
-OBJ = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
-SRC = $(addprefix $(SRCPATH)/,$(SRCFILES))
+# ============================================================================ #
+# Compilers
+C_FLAGS			= $(HEAD_FLAGS) $(BASE_FLAGS)
 
-SRCFILES = 	ft_isprint.c ft_memset.c ft_bzero.c			\
-			ft_memcpy.c ft_memccpy.c ft_memmove.c 		\
-			ft_memchr.c ft_memcmp.c ft_strlen.c 		\
-			ft_strdup.c ft_strcpy.c ft_strncpy.c 		\
-			ft_strcat.c ft_strncat.c ft_strlcat.c 		\
-			ft_strchr.c ft_strrchr.c ft_strstr.c 		\
-			ft_strnstr.c ft_strcmp.c ft_strncmp.c 		\
-			ft_atoi.c ft_isalpha.c ft_isdigit.c 		\
-			ft_isalnum.c ft_isascii.c			 		\
-			ft_toupper.c ft_tolower.c ft_memalloc.c 	\
-			ft_memdel.c ft_strnew.c ft_strdel.c 		\
-			ft_strclr.c ft_striter.c ft_striteri.c 		\
-			ft_strmap.c ft_strmapi.c ft_strequ.c 		\
-			ft_strnequ.c ft_strsub.c ft_strjoin.c 		\
-			ft_strtrim.c ft_strsplit.c ft_itoa.c 		\
-			ft_putchar.c ft_putstr.c ft_putendl.c 		\
-			ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c 	\
-			ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c 	\
-			ft_lstdelone.c ft_lstdel.c ft_lstadd.c 		\
-			ft_lstiter.c ft_lstmap.c ft_itoa_base.c 	\
-			ft_sqrt.c ft_power.c ft_lstadd_last.c 		\
-			ft_strndup.c get_next_line.c ft_getnbr.c	\
-			ft_ulltoa_base.c ftv_print.c ftv_insert.c	\
-			ftv_del.c ft_error.c ft_nbrlen.c	\
+ifeq ($(UNAME),LINUX)
+  #linux compilation
+else
+  #macos compilation
+  CC_C			= clang
+  CC_AR			= ar
+endif
+
+ifeq ($(CC_LD),$(CC_AR))
+  LD_FLAGS_		= rcs $@ $(LD_FLAGS)
+else
+  LD_FLAGS_		= -o $@ $(LD_FLAGS) $(BASE_FLAGS)
+endif
 
 
-##=- Process -=##
+# ============================================================================ #
+# Misc
+PRINT_OK		= printf '  \033[32m$<\033[0m\n'
+PRINT_LINK		= printf '\033[32m$@\033[0m\n'
+PRINT_MAKE		= printf '\033[32mmake $@\033[0m\n'
+DEPEND			:= depend.mk
+SHELL			:= /bin/bash
 
-all: $(NAME)
+# ============================================================================ #
+# Rules
 
-$(NAME): $(OBJ)
-	@echo "\033[33mProcessing\033[0m"
-	@echo "\033[32mMaking Libft \033[0m"
-	@$(AR) $(OBJ)
-	@$(RAN)
-	@echo "\033[33mEnd of the Process\033[0m"
+# Default rule (needed to be before include)
+all: _all_separate_compilation
 
-$(OBJ): $(OBJPATH)/%.o : $(SRCPATH)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) -o $@ $(CFLAGS) $(INCLUDES) -c $<
+-include $(DEPEND)
 
+_all_separate_compilation: $(SRCSBIN)
+	$(MAKE) _all_linkage
+
+_all_linkage: $(NAME)
+
+# Linking
+$(NAME): $(LIBSBIN) $(SRCSBIN)
+	$(CC_LD) $(LD_FLAGS_) $(SRCSBIN) && $(PRINT_LINK)
+
+# Compiling
+$(MKGEN_OBJDIR)/%.o: %.c
+	$(CC_C) $(C_FLAGS) -c $< -o $@ && $(PRINT_OK)
+
+# Create obj directories
+$(MKGEN_OBJDIR)/%/:
+	mkdir -p $@
+
+# Clean obj files
 clean:
-	@/bin/rm -rf $(OBJPATH)
-	@echo "\033[31mclean $(OBJPATH)\033[0m"
+	rm -f $(SRCSBIN)
 
+# Clean everything
 fclean: clean
-	@/bin/rm -rf $(NAME)
-	@echo "\033[31mclean $(NAME)\033[0m"
+	rm -f $(NAME)
 
-re: fclean all
+# Clean and make
+re: fclean
+	$(MAKE) all
+
+
+# ============================================================================ #
+# Special targets
+.SILENT:
+.PHONY: all clean fclean re _all_separate_compilation _all_linkage $(LIBSMAKE)
