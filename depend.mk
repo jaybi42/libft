@@ -9,6 +9,7 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_isblank.o\
 	obj/src/ft_isdigit.o\
 	obj/src/ft_isprint.o\
+	obj/src/ft_isspace.o\
 	obj/src/ft_itoa.o\
 	obj/src/ft_itoa_base.o\
 	obj/src/ft_lstadd.o\
@@ -61,6 +62,8 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_strnstr.o\
 	obj/src/ft_strrchr.o\
 	obj/src/ft_strsplit.o\
+	obj/src/ft_strsplit_blank.o\
+	obj/src/ft_strsplit_space.o\
 	obj/src/ft_strstr.o\
 	obj/src/ft_strsub.o\
 	obj/src/ft_strtrim.o\
@@ -79,9 +82,10 @@ obj/src/ft_getnbr.o: src/ft_getnbr.c | obj/src/
 obj/src/ft_isalnum.o: src/ft_isalnum.c | obj/src/
 obj/src/ft_isalpha.o: src/ft_isalpha.c | obj/src/
 obj/src/ft_isascii.o: src/ft_isascii.c | obj/src/
-obj/src/ft_isblank.o: include/libft.h src/ft_isblank.c | obj/src/
+obj/src/ft_isblank.o: src/ft_isblank.c | obj/src/
 obj/src/ft_isdigit.o: src/ft_isdigit.c | obj/src/
 obj/src/ft_isprint.o: src/ft_isprint.c | obj/src/
+obj/src/ft_isspace.o: src/ft_isspace.c | obj/src/
 obj/src/ft_itoa.o: src/ft_itoa.c | obj/src/
 obj/src/ft_itoa_base.o: src/ft_itoa_base.c | obj/src/
 obj/src/ft_lstadd.o: include/libft.h src/ft_lstadd.c | obj/src/
@@ -134,6 +138,8 @@ obj/src/ft_strnew.o: include/libft.h src/ft_strnew.c | obj/src/
 obj/src/ft_strnstr.o: src/ft_strnstr.c | obj/src/
 obj/src/ft_strrchr.o: include/libft.h src/ft_strrchr.c | obj/src/
 obj/src/ft_strsplit.o: include/libft.h src/ft_strsplit.c | obj/src/
+obj/src/ft_strsplit_blank.o: include/libft.h src/ft_strsplit_blank.c | obj/src/
+obj/src/ft_strsplit_space.o: include/libft.h src/ft_strsplit_space.c | obj/src/
 obj/src/ft_strstr.o: src/ft_strstr.c | obj/src/
 obj/src/ft_strsub.o: src/ft_strsub.c | obj/src/
 obj/src/ft_strtrim.o: include/libft.h src/ft_strtrim.c | obj/src/
