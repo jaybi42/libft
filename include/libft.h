@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/13 14:10:31 by jguthert          #+#    #+#             */
-/*   Updated: 2016/04/17 15:25:20 by jguthert         ###   ########.fr       */
+/*   Updated: 2016/09/06 18:11:35 by jguthert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,25 @@
 
 # define ERROR ft_error(__FILE__, __FUNCTION__, __LINE__)
 # define ERRORNO ft_errorno(__FILE__, __FUNCTION__, __LINE__)
-# define ABS(NBR) (((NBR) < 0) ? (-NBR) : (NBR))
+# define ABS(NBR) (((NBR) < 0) ? -(NBR) : (NBR))
 # define FTV_INIT(TYPE) ((t_ftv){NULL, 0, 0, sizeof(TYPE)})
+
+# define FTL_NODE	struct s_ftl_node
+# define FTL_NODEC	struct s_ftl_node const
+
+typedef struct		s_ftl_node
+{
+	FTL_NODE		*next;
+	FTL_NODE		*prev;
+}					t_ftl_node;
+
+typedef struct		s_ftl_root
+{
+	FTL_NODE		*next;
+	FTL_NODE		*prev;
+	size_t			size;
+	size_t			node_size;
+}					t_ftl_root;
 
 typedef struct		s_list
 {
@@ -58,6 +75,7 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_print_tab(char **tab, char *name);
 
 /*
 **	##=-  String  -=##
@@ -85,7 +103,6 @@ int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
-
 char				*ft_strnew(size_t size);
 void				ft_strdel(char **as);
 void				ft_strclr(char *s);
@@ -94,6 +111,16 @@ void				ft_striter(char *s, void (*f)(char *));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmap(char const *s, char (*f)(char));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void				ft_tabdel(char **tab);
+int					ft_strisnum(char *str);
+
+/*
+**	##=-  Get information  -=##
+*/
+
+int					ft_nbrlen(uint64_t nbr);
+int					ft_tablen(char **tab);
+int					ft_listlen(t_list *list);
 
 /*
 **	##=-  Adaptator  -=##
@@ -104,14 +131,13 @@ char				*ft_itoa(int n);
 char				*ft_itoa_base(int nbr, int base);
 char				*ft_ulltoa_base(uint64_t nbr, int base, char *str);
 int					ft_getnbr(char *str);
-int					ft_nbrlen(uint64_t nbr);
 
 /*
 **	##=-  Casse  -=##
 */
 
-int					ft_isblank(int c);
 int					ft_isspace(int c);
+int					ft_isblank(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -119,6 +145,7 @@ int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+int					ft_strisalnum(char *str);
 
 /*
 **	##=-  Memory  -=##
@@ -133,6 +160,7 @@ void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
+void				*ft_memdup(void const *data, size_t size);
 
 /*
 **	##=-  Simple chained list  -=##
@@ -145,6 +173,20 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd_last(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+
+/*
+**	##=-  Double chained list looped  -=##
+*/
+
+t_ftl_root			ftl_uninit(void);
+void				ftl_init(t_ftl_root *l, size_t size);
+int					ftl_insert_pos(t_ftl_root *l, FTL_NODE *pos, FTL_NODEC *nod);
+int					ftl_push_front(t_ftl_root *l, FTL_NODEC *node);
+int					ftl_push_back(t_ftl_root *l, FTL_NODEC *node);
+void				ftl_release(t_ftl_root *l, void (*delalloc)());
+void				ftl_pop_back(t_ftl_root *l, void (*delalloc)());
+void				ftl_pop_front(t_ftl_root *l, void (*delalloc)());
+void				ftl_erase_pos(t_ftl_root *l, t_ftl_node *pos, void (*delalloc)());
 
 /*
 **	##=-  Math  -=##

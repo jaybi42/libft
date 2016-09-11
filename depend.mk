@@ -29,6 +29,7 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_memset.o\
 	obj/src/ft_nbrlen.o\
 	obj/src/ft_power.o\
+	obj/src/ft_print_tab.o\
 	obj/src/ft_putchar.o\
 	obj/src/ft_putchar_fd.o\
 	obj/src/ft_putendl.o\
@@ -46,6 +47,8 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_strdel.o\
 	obj/src/ft_strdup.o\
 	obj/src/ft_strequ.o\
+	obj/src/ft_strisalnum.o\
+	obj/src/ft_strisnum.o\
 	obj/src/ft_striter.o\
 	obj/src/ft_striteri.o\
 	obj/src/ft_strjoin.o\
@@ -71,6 +74,9 @@ MKGEN_SRCSBIN_BLABLA :=\
 	obj/src/ft_tolower.o\
 	obj/src/ft_toupper.o\
 	obj/src/ft_ulltoa_base.o\
+	obj/src/ftl_destruct.o\
+	obj/src/ftl_init.o\
+	obj/src/ftl_insert.o\
 	obj/src/ftv_del.o\
 	obj/src/ftv_insert.o\
 	obj/src/ftv_print.o\
@@ -105,6 +111,7 @@ obj/src/ft_memmove.o: include/libft.h src/ft_memmove.c | obj/src/
 obj/src/ft_memset.o: include/libft.h src/ft_memset.c | obj/src/
 obj/src/ft_nbrlen.o: include/libft.h src/ft_nbrlen.c | obj/src/
 obj/src/ft_power.o: src/ft_power.c | obj/src/
+obj/src/ft_print_tab.o: include/libft.h src/ft_print_tab.c | obj/src/
 obj/src/ft_putchar.o: src/ft_putchar.c | obj/src/
 obj/src/ft_putchar_fd.o: src/ft_putchar_fd.c | obj/src/
 obj/src/ft_putendl.o: include/libft.h src/ft_putendl.c | obj/src/
@@ -122,6 +129,8 @@ obj/src/ft_strcpy.o: src/ft_strcpy.c | obj/src/
 obj/src/ft_strdel.o: src/ft_strdel.c | obj/src/
 obj/src/ft_strdup.o: include/libft.h src/ft_strdup.c | obj/src/
 obj/src/ft_strequ.o: include/libft.h src/ft_strequ.c | obj/src/
+obj/src/ft_strisalnum.o: include/libft.h src/ft_strisalnum.c | obj/src/
+obj/src/ft_strisnum.o: include/libft.h src/ft_strisnum.c | obj/src/
 obj/src/ft_striter.o: include/libft.h src/ft_striter.c | obj/src/
 obj/src/ft_striteri.o: include/libft.h src/ft_striteri.c | obj/src/
 obj/src/ft_strjoin.o: include/libft.h src/ft_strjoin.c | obj/src/
@@ -147,6 +156,9 @@ obj/src/ft_swap.o: src/ft_swap.c | obj/src/
 obj/src/ft_tolower.o: src/ft_tolower.c | obj/src/
 obj/src/ft_toupper.o: src/ft_toupper.c | obj/src/
 obj/src/ft_ulltoa_base.o: src/ft_ulltoa_base.c | obj/src/
+obj/src/ftl_destruct.o: include/libft.h src/ftl_destruct.c | obj/src/
+obj/src/ftl_init.o: include/libft.h src/ftl_init.c | obj/src/
+obj/src/ftl_insert.o: include/libft.h src/ftl_insert.c | obj/src/
 obj/src/ftv_del.o: include/libft.h src/ftv_del.c | obj/src/
 obj/src/ftv_insert.o: include/libft.h src/ftv_insert.c | obj/src/
 obj/src/ftv_print.o: include/libft.h src/ftv_print.c | obj/src/

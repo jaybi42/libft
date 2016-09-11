@@ -11,3 +11,4 @@ Inside the lib:
 - get_next_line
 - Basic data convertissor
 - Vector (Inspired from C++ Vectors)
+- Double circular chained list
